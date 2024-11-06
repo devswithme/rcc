@@ -40,7 +40,9 @@ export default function Page() {
 	async function onSubmit(values: z.infer<typeof pinSchema>) {
 		if (values.pin === process.env.NEXT_PUBLIC_PIN_PWD) {
 			try {
-				await axios.patch('http://localhost:3000/api/users', { slug })
+				await axios.patch('https://rccdenpasar.org/api/users', {
+					slug,
+				})
 				form.reset()
 				setIsSuccess(true)
 			} catch (err) {

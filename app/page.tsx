@@ -79,7 +79,7 @@ export default function Home() {
 		async function getQuota() {
 			try {
 				const result = await axios.get(
-					'http://localhost:3000/api/quota'
+					'https://rccdenpasar.org/api/quota'
 				)
 				setData(result.data)
 			} catch (err) {
@@ -93,7 +93,7 @@ export default function Home() {
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		try {
 			const result = await axios.post(
-				'http://localhost:3000/api/users',
+				'https://rccdenpasar.org/api/users',
 				JSON.stringify(values)
 			)
 			setResult(result.data)
@@ -130,7 +130,7 @@ export default function Home() {
 							<div className='grid grid-cols-4 gap-x-4'>
 								<QRCode
 									className='w-full h-auto col-span-2'
-									value={`http://localhost:3000/id/${result.id}`}
+									value={`https://rccdenpasar.org/id/${result.id}`}
 								/>
 								<div className='col-span-2 space-y-1'>
 									<div>

@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
 import db from '@/lib/db'
+import corsMiddleware from '@/lib/cors'
 
-export async function POST(req: Request) {
+export async function POST(req: Request, res: Response) {
+	await corsMiddleware(req, res) // Enable CORS
 	try {
 		const data = await req.json()
 		console.table(data)
@@ -12,7 +14,7 @@ export async function POST(req: Request) {
 		await db.user.update({
 			where: { id: result.id },
 			data: {
-				link: `http://localhost:3000/id/${result.id}`,
+				link: `https://rccdenpasar.org/id/${result.id}`,
 			},
 		})
 

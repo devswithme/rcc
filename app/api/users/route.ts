@@ -1,12 +1,9 @@
 import { NextResponse } from 'next/server'
 import db from '@/lib/db'
-import corsMiddleware from '@/lib/cors'
 
-export async function POST(req: Request, res: Response) {
-	await corsMiddleware(req, res) // Enable CORS
-	try {
+export async function POST(req: Request) {
+		try {
 		const data = await req.json()
-		console.table(data)
 		const result = await db.user.create({
 			data,
 			select: { id: true, nama: true, ibadah: true },
@@ -14,7 +11,7 @@ export async function POST(req: Request, res: Response) {
 		await db.user.update({
 			where: { id: result.id },
 			data: {
-				link: `https://rccdenpasar.org/id/${result.id}`,
+				link: `https://www.rccdenpasar.org/id/${result.id}`,
 			},
 		})
 
@@ -24,7 +21,6 @@ export async function POST(req: Request, res: Response) {
 		await db.quota.update({
 			where: { id: 1 },
 			data: {
-				// @ts-expect-error test
 				[propQuota]: quota[0][propQuota] - 1,
 			},
 		})

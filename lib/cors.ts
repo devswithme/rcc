@@ -1,27 +1,24 @@
-// lib/corsMiddleware.ts
-import Cors from 'cors'
+// lib/corsMiddleware.js
+import Cors from 'cors';
 
-// Initialize the cors middleware
+// Initialize CORS middleware
 const cors = Cors({
-	methods: ['GET', 'POST', 'PATCH'], // Add allowed methods here
-	origin: '*', // Replace with a specific origin or an array of origins in production
-})
+  methods: ['GET', 'POST', 'PATCH'], // Allowed HTTP methods
+  origin: '*', // Replace with specific origin or array of origins in production
+});
 
-// Helper function to wait for middleware to complete
-function runMiddleware(req: Request, res: Response, fn: Function) {
-	return new Promise((resolve, reject) => {
-		fn(req, res, (result: any) => {
-			if (result instanceof Error) {
-				return reject(result)
-			}
-			return resolve(result)
-		})
-	})
+// Helper function to handle middleware in Next.js
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
 }
 
-export default async function corsMiddleware(
-	req: Request,
-	res: Response
-) {
-	await runMiddleware(req, res, cors)
+export default async function corsMiddleware(req, res) {
+  await runMiddleware(req, res, cors);
 }

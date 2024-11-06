@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server'
 import db from '@/lib/db'
-import corsMiddleware from '@/lib/cors'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
-	await corsMiddleware(req, res)
 		try {
 			// @ts-ignore
 		const data = await req.json()
@@ -29,7 +27,10 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 				[propQuota]: quota[0][propQuota] - 1,
 			},
 		})
-		return NextResponse.json(result, { status: 201 })
+		const response = NextResponse.json(result, { status: 201 })
+		response.headers.set('Access-Control-Allow-Origin', '*');  // Adjust origin as needed
+
+		return response
 	} catch (err) {
 		return NextResponse.json(err, { status: 500 })
 	}
@@ -46,7 +47,10 @@ export async function PATCH(req: Request) {
 				isVerified: true,
 			},
 		})
-		return NextResponse.json({ ok: true }, { status: 201 })
+		const response =  NextResponse.json({ ok: true }, { status: 201 })
+		response.headers.set('Access-Control-Allow-Origin', '*');  // Adjust origin as needed
+		
+		return response
 	} catch (err) {
 		return NextResponse.json(err, { status: 500 })
 	}

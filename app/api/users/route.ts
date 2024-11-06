@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import db from '@/lib/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextApiRequest) {
 		try {
 			// @ts-ignore
 		const data = await req.json()
@@ -20,10 +20,10 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 		const propQuota = `KU${result.ibadah}`
 		const quota = await db.quota.findMany()
 
+		// @ts-expect-error: Fixing issue with dynamic object property access
 		await db.quota.update({
 			where: { id: 1 },
 			data: {
-				// @ts-ignore: Explanation of why this error is ignored
 				[propQuota]: quota[0][propQuota] - 1,
 			},
 		})
@@ -49,7 +49,7 @@ export async function PATCH(req: Request) {
 		})
 		const response =  NextResponse.json({ ok: true }, { status: 201 })
 		response.headers.set('Access-Control-Allow-Origin', '*');  // Adjust origin as needed
-		
+
 		return response
 	} catch (err) {
 		return NextResponse.json(err, { status: 500 })

@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server'
 import db from '@/lib/db'
+import corsMiddleware from '@/lib/cors'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export async function POST(req: Request) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+	await corsMiddleware(req, res)
 		try {
+			// @ts-ignore
 		const data = await req.json()
 		const result = await db.user.create({
 			data,
@@ -21,7 +25,7 @@ export async function POST(req: Request) {
 		await db.quota.update({
 			where: { id: 1 },
 			data: {
-				// @ts-expect-error test
+				// @ts-ignore
 				[propQuota]: quota[0][propQuota] - 1,
 			},
 		})

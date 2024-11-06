@@ -25,7 +25,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 		await db.quota.update({
 			where: { id: 1 },
 			data: {
-				// @ts-expect-error
+				// @ts-expect-error testquota
 				[propQuota]: quota[0][propQuota] - 1,
 			},
 		})

@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server'
 import db from '@/lib/db'
-import { NextApiRequest, NextApiResponse } from 'next'
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: Request) {
 		try {
 			// @ts-ignore
 		const data = await req.json()

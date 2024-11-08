@@ -15,17 +15,27 @@ datasource db {
 
 model User {
   id String @id @default(cuid())
-  ibadah String
+  ibadah Ibadah 
   nama String
   whatsapp String
   umur String
   alamat String
-  email String
-  komsel Boolean
+  komsel Komsel @default(belum)
   GKK String
   KK String
   isVerified Boolean @default(false)
   link String 
+}
+
+enum Ibadah {
+  KU1
+  KU2
+  KU3
+}
+
+enum Komsel {
+  sudah
+  belum
 }
 
 model Quota {

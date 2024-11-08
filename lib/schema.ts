@@ -2,13 +2,12 @@ import { z } from 'zod'
 
 const formSchema = z
 	.object({
-		ibadah: z.enum(['1', '2', '3']).default('1'),
+		ibadah: z.enum(['KU1', 'KU2', 'KU3']),
 		nama: z.string().nonempty(),
 		whatsapp: z.string().nonempty(),
 		umur: z.string().nonempty(),
 		alamat: z.string().nonempty(),
-		email: z.string().email().nonempty(),
-		komsel: z.boolean().default(false),
+		komsel: z.enum(['sudah', 'belum']).default('belum'),
 		link: z.string(),
 		GKK: z.string(),
 		KK: z.string(),

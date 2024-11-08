@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
+import { Manrope } from 'next/font/google'
 import './globals.css'
+import { Toaster } from '@/components/ui/sonner'
 
-const roboto = Roboto({
+const roboto = Manrope({
 	subsets: ['latin'],
-	weight: ['100', '300', '400', '500', '700', '900'],
+	weight: ['200', '300', '400', '500', '700'],
 })
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={`${roboto.className} antialiased bg-red-900`}>
 				{children}
+				<Toaster />
 			</body>
 		</html>
 	)

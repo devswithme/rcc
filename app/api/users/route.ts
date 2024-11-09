@@ -28,7 +28,6 @@ export async function POST(req: Request) {
 		await db.quota.update({
 			where: { id: 1 },
 			data: {
-				// @ts-expect-error test
 				[result.ibadah]: quota[0][result.ibadah] - 1,
 			},
 		})

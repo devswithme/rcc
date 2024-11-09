@@ -114,6 +114,7 @@ export default function Home() {
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		setIsLoading(true)
 		try {
+			console.log(values)
 			const result = await axios.post(
 				'https://rccdenpasar.org/api/users',
 				JSON.stringify(values)

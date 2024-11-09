@@ -12,10 +12,28 @@ const formSchema = z
 		GKK: z.string(),
 		KK: z.string(),
 	})
-	.refine((data) => !data.komsel || (data.GKK && data.KK), {
-		message: 'required',
-		path: ['GKK'], // Specifies where the error should appear
-	})
+	.refine(
+		(data) => {
+			if (data.komsel === 'sudah') {
+				return data.GKK
+			}
+			return true
+		},
+		{
+			path: ['GKK'],
+		}
+	)
+	.refine(
+		(data) => {
+			if (data.komsel === 'sudah') {
+				return data.KK
+			}
+			return true
+		},
+		{
+			path: ['KK'],
+		}
+	)
 
 const pinSchema = z.object({
 	pin: z.string().min(6),

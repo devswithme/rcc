@@ -23,14 +23,13 @@ export async function POST(req: Request) {
 			},
 		})
 
-		const propQuota = `KU${result.ibadah}` as keyof typeof db.quota
 		const quota = await db.quota.findMany()
 
 		await db.quota.update({
 			where: { id: 1 },
 			data: {
 				// @ts-expect-error test
-				[propQuota]: quota[0][propQuota] - 1,
+				[result.ibadah]: quota[0][result.ibadah] - 1,
 			},
 		})
 

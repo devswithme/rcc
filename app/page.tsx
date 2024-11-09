@@ -342,7 +342,7 @@ export default function Home() {
 												Nomor Whatsapp *
 											</FormLabel>
 											<FormControl>
-												<Input {...field} />
+												<Input {...field} placeholder='62'/>
 											</FormControl>
 											{/* <FormMessage /> */}
 										</FormItem>

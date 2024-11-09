@@ -16,11 +16,14 @@ export async function POST(req: Request) {
 			},
 		})
 
-		await db.user.update({
+		const update = await db.user.update({
 			where: { id: result.id },
 			data: {
 				link: `https://www.rccdenpasar.org/id/${result.id}`,
 			},
+			select: {
+				link: true
+			}
 		})
 
 		const quota = await db.quota.findMany()
@@ -31,6 +34,8 @@ export async function POST(req: Request) {
 				[result.ibadah]: quota[0][result.ibadah] - 1,
 			},
 		})
+
+		result.link = update.link
 
 		const response = NextResponse.json(result, { status: 201 })
 		response.headers.set('Access-Control-Allow-Origin', '*') // Adjust origin as needed
